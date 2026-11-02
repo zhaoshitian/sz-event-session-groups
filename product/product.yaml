@@ -1,0 +1,11 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+tagline: "Event Session Groups with a checkable result"
+summary: "Partition an unordered multi-user event stream into deterministic inactivity-gap sessions."
+highlights:
+  - "Works offline with structured inputs"
+  - "Checks the saved artifact as well as the returned result"
+  - "Rejects invalid inputs and protects existing files"
+steps:
+  - "Provide the task data and a new output filename"
+  - "Run the task to generate its ordered results"
+  - "Review the verified result and saved JSON artifact"
