@@ -1,0 +1,27 @@
+_ > nanoagent.plugin.v0001.ManifestConfig:
+id: sz-event-session-groups
+name: Event Session Groups
+version: 1.0.0
+status: ready
+spec: nanoagent.plugin/v0001
+
+runtime > nanoagent.plugin.v0001.RuntimeConfig:
+  type: mcp_stdio
+  command: [uv, run, --frozen, python, -m, plugin]
+
+permissions > nanoagent.plugin.v0001.PermissionsConfig:
+  network > nanoagent.plugin.v0001.NetworkConfig:
+    hosts: []
+  filesystem > nanoagent.plugin.v0001.FilesystemConfig:
+    write: [workspace]
+
+tools > dict[contract.Tool, nanoagent.plugin.v0001.ToolConfig]:
+  group_sessions:
+    description: "Partition an unordered multi-user event stream into deterministic inactivity-gap sessions."
+tasks > dict[contract.Task, nanoagent.plugin.v0001.TaskConfig]:
+  group-sessions:
+    description: "Partition an unordered multi-user event stream into deterministic inactivity-gap sessions."
+    runner: tool
+    tools: [group_sessions]
+    reference: null
+    instructions: "Within each user, order events by (minute,event_id). Adjacent events join when their gap <= gap; a larger gap splits. Session end is the last event time. Sort sessions by user then start. total counts sessions. Save canonical JSON with records and total at destination and return the same rows and total with its path."
